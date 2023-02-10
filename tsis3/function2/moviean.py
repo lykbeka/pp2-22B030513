@@ -75,9 +75,20 @@ movies = [
 "category": "Romance"
 }
 ]
-def func(movies):
-    for movies["imdb"] in movies:
-        if imdb>5.5:
-            return True
-            break
-print(func(movies))
+
+def is_high_imdb(movie):
+    return movie["imdb"] > 5.5
+
+def high_imdb_movies(movies):
+    return [movie for movie in movies if movie["imdb"] > 5.5]
+
+def movies_by_category(movies, category):
+    return [movie for movie in movies if movie["category"] == category]
+
+def average_imdb(movies):
+    imdb_scores = [movie["imdb"] for movie in movies]
+    return sum(imdb_scores) / len(imdb_scores)
+
+def average_imdb_by_category(movies, category):
+    category_movies = movies_by_category(movies, category)
+    return average_imdb(category_movies)
