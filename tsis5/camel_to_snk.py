@@ -1,5 +1,5 @@
 import re
-string=str(input())
+string=input()
 x=re.findall('[A-Z][^A-Z]*', string)
 l=[]
 for i in x:

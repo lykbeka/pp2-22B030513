@@ -1,5 +1,5 @@
 import re
-string=str(input())
+string=input()
 x=re.split("[_]",string)
 l=[]
 for i in x:

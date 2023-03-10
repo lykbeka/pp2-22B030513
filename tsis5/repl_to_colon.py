@@ -1,3 +1,3 @@
 import re
-string=str(input())
+string=input()
 print(re.sub("[ .,]",":",string))

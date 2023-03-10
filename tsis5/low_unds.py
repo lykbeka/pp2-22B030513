@@ -1,4 +1,4 @@
 import re
-string=str(input())
+string=input()
 x=re.search("([a-z]_)+[a-z]",string)
 print(x)

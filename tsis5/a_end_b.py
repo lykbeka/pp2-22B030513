@@ -1,4 +1,4 @@
 import re
-string=str(input())
+string=input()
 x=re.search("a.*b$",string)
 print(x)

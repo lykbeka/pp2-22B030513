@@ -1,4 +1,4 @@
 import re
-string=str(input())
+string=input()
 x=re.search("ab*",string)
 print(x)
