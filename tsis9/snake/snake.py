@@ -117,7 +117,11 @@ r_b=pygame.Rect(0,760,800,40)
 class Food:
     def __init__(self, x, y):
         self.location = Point(x, y)
+        global F
+        self.ran=random.randint(1,3)
+        F=self.ran
     def draw(self):
+        if self.ran==1:
             pygame.draw.rect(
             SCREEN,
             GREEN,
@@ -128,16 +132,38 @@ class Food:
                 BLOCK_SIZE,
             )
             )
+        elif self.ran==2:
+            pygame.draw.rect(
+            SCREEN,
+            YELLOW,
+            pygame.Rect(
+                self.location.x * BLOCK_SIZE,
+                self.location.y * BLOCK_SIZE,
+                BLOCK_SIZE,
+                BLOCK_SIZE,
+            )
+            )
+        else:
+            pygame.draw.rect(
+            SCREEN,
+            RED,
+            pygame.Rect(
+                self.location.x * BLOCK_SIZE,
+                self.location.y * BLOCK_SIZE,
+                BLOCK_SIZE,
+                BLOCK_SIZE,
+            )
+            )
     def spwn(self):
         self.location.x = random.randint(1, WIDTH // BLOCK_SIZE - 2)
         self.location.y = random.randint(1, HEIGHT // BLOCK_SIZE - 2)
-        
 def main():
     running = True
     snake = Snake()
     food = Food(5, 5)
     dx, dy = 0, 0
-   
+    pygame.time.set_timer(pygame.USEREVENT,5000)
+
     while running:
         SCREEN.fill(BLACK)
 
@@ -154,7 +180,12 @@ def main():
                     dx, dy = 1, 0
                 elif event.key == pygame.K_LEFT:
                     dx, dy = -1, 0
-            
+            if event.type ==pygame.USEREVENT:
+                food.spwn()
+                while snake.fcoll(food):
+                    food.spwn()
+                food.__init__(food.location.x ,food.location.y)
+                pygame.time.set_timer(pygame.USEREVENT,5000)
         snake.move(dx, dy)
         global SCORE,SPD,LEVEL
         score=font_small.render("SCORE:"+str(SCORE), True, WHITE)
@@ -173,14 +204,19 @@ def main():
             pygame.quit()
             sys.exit()  
         
+        
+        
         if snake.check_collision(food):    
-            SCORE+=1
-            snake.body.append(
-            Point(snake.body[-1].x, snake.body[-1].y))
+            for i in range(1,F+1):
+                SCORE+=1
+                snake.body.append(
+                Point(snake.body[-1].x, snake.body[-1].y)
+                )      
             food.spwn()
             while snake.fcoll(food):
                 food.spwn()
             food.__init__(food.location.x ,food.location.y)
+            pygame.time.set_timer(pygame.USEREVENT,5000)
             if SCORE>=LEVEL*4:
                 LEVEL+=1
                 SPD+=1

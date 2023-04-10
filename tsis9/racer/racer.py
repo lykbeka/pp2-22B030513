@@ -70,40 +70,43 @@ class Player(pygame.sprite.Sprite):
               if pressed_keys[K_RIGHT]:
                   self.rect.move_ip(5, 0)
                   
-class Coin(pygame.sprite.Sprite):
+class Coin1(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image=pygame.image.load("Coin.png")
-        self.rect=self.image.get_rect()
+        self.ran=random.randint(1,2)
+        if (self.ran==1):
+            self.image=pygame.image.load("Coin.png")
+        else:
+            self.image=pygame.image.load("Coin2.png")
         self.image.set_colorkey((255,255,255))
+        self.rect=self.image.get_rect()
         self.rect.center = (random.randint(40, SCREEN_WIDTH - 40),0)
     def move(self):
         global COINS,coins,P1,E1
         self.rect.move_ip(0,SPEED)
         if (self.rect.bottom > 600):
-            self.rect.top = 0
-            self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
+            Coin1.__init__(self)
         if pygame.sprite.spritecollideany(P1, coins):
-            self.rect.top = 0
-            self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
-            COINS+=1
+            Coin1.__init__(self)
+            COINS+=self.ran
         if pygame.sprite.spritecollideany(E1, coins):
-            self.rect.top=0
-            self.rect.center = (random.randint(40, SCREEN_WIDTH - 40), 0)
+            Coin1.__init__(self)
+
+
 
 #Setting up Sprites        
 P1 = Player()
 E1 = Enemy()
-C=Coin()
+C1=Coin1()
 #Creating Sprites Groups
 enemies = pygame.sprite.Group()
 enemies.add(E1)
 all_sprites = pygame.sprite.Group()
 all_sprites.add(P1)
 all_sprites.add(E1)
-all_sprites.add(C)
+all_sprites.add(C1)
 coins=pygame.sprite.Group()
-coins.add(C)
+coins.add(C1)
 
 #Adding a new User event 
 INC_SPEED = pygame.USEREVENT + 1
@@ -114,11 +117,13 @@ while True:
       
     #Cycles through all events occuring  
     for event in pygame.event.get():
-        if event.type == INC_SPEED:
-              SPEED += 0.5      
+        if event.type == INC_SPEED :
+            SPEED += 0.1      
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
+        if COINS%10==0:
+            SPEED+=0.3
 
 
     DISPLAYSURF.blit(background, (0,0))
@@ -126,6 +131,8 @@ while True:
     DISPLAYSURF.blit(scores, (10,10))
     coins1=font_small.render(str(COINS),True,BLACK)
     DISPLAYSURF.blit(coins1,(360,10))
+
+    
 
     #Moves and Re-draws all Sprites
     for entity in all_sprites:

@@ -198,6 +198,118 @@ class Button6E(GameObject):
 
     def update(self, current_pos):
         pass
+class Button7(GameObject):
+    def __init__(self):
+        self.size = 40
+        self.rect = pygame.draw.rect(
+            SCREEN,
+            (255,128,0),
+            (
+                100,
+                20,
+                self.size,
+                self.size,
+            )
+        )
+
+    def draw(self):
+        pygame.draw.rect(
+            SCREEN,
+            (255,128,0),
+            (
+                100,
+                20,
+                self.size,
+                self.size,
+            )
+        )
+
+    def update(self, current_pos):
+        pass
+class Button8(GameObject):
+    def __init__(self):
+        self.size = 40
+        self.rect = pygame.draw.rect(
+            SCREEN,
+            (255,0,127),
+            (
+                140,
+                20,
+                self.size,
+                self.size,
+            )
+        )
+
+    def draw(self):
+        pygame.draw.rect(
+            SCREEN,
+            (255,0,127),
+            (
+                140,
+                20,
+                self.size,
+                self.size,
+            )
+        )
+
+    def update(self, current_pos):
+        pass
+class Button9(GameObject):
+    def __init__(self):
+        self.size = 40
+        self.rect = pygame.draw.rect(
+            SCREEN,
+            (51,255,255),
+            (
+                180,
+                20,
+                self.size,
+                self.size,
+            )
+        )
+
+    def draw(self):
+        pygame.draw.rect(
+            SCREEN,
+            (51,255,255),
+            (
+                180,
+                20,
+                self.size,
+                self.size,
+            )
+        )
+
+    def update(self, current_pos):
+        pass
+class Button10(GameObject):
+    def __init__(self):
+        self.size = 40
+        self.rect = pygame.draw.rect(
+            SCREEN,
+            (76,0,153),
+            (
+                220,
+                20,
+                self.size,
+                self.size,
+            )
+        )
+
+    def draw(self):
+        pygame.draw.rect(
+            SCREEN,
+            (76,0,153),
+            (
+                220,
+                20,
+                self.size,
+                self.size,
+            )
+        )
+
+    def update(self, current_pos):
+        pass
 
 class Eraser(GameObject):
     def __init__(self, *args, **kwargs):
@@ -260,6 +372,107 @@ class Rectangle(GameObject):
 
     def update(self, current_pos):
         self.end_pos.x, self.end_pos.y = current_pos
+class Square(GameObject):
+    def __init__(self, start_pos, *args, **kwargs): # Rectangle(start_pos=1); Pen(start_pos=1)
+        self.start_pos = Point(*start_pos)
+        self.end_pos = Point(*start_pos)
+
+    def draw(self):
+        start_pos_x = min(self.start_pos.x, self.end_pos.x)  # min(self.start_pos[0], self.end_pos[0])
+        start_pos_y = min(self.start_pos.x, self.end_pos.y)
+
+        end_pos_x = max(self.start_pos.x, self.end_pos.x)
+        end_pos_y = max(self.start_pos.y, self.end_pos.y)
+
+        pygame.draw.rect(
+            SCREEN,
+            COLOR,
+            (
+                start_pos_x,start_pos_y,
+                end_pos_x-start_pos_x,
+                end_pos_x-start_pos_x
+            ),
+            width=5,
+        )
+
+    def update(self, current_pos):
+        self.end_pos.x, self.end_pos.y = current_pos
+class Rtrian(GameObject):
+    def __init__(self, start_pos, *args, **kwargs): # Rectangle(start_pos=1); Pen(start_pos=1)
+        self.start_pos = Point(*start_pos)
+        self.end_pos = Point(*start_pos)
+
+    def draw(self):
+        start_pos_x = min(self.start_pos.x, self.end_pos.x)  # min(self.start_pos[0], self.end_pos[0])
+        start_pos_y = min(self.start_pos.x, self.end_pos.y)
+
+        end_pos_x = max(self.start_pos.x, self.end_pos.x)
+        end_pos_y = max(self.start_pos.y, self.end_pos.y)
+
+        pygame.draw.polygon(
+            SCREEN,
+            COLOR,
+            (
+                (start_pos_x,start_pos_y),
+                (start_pos_x,end_pos_y),
+                (end_pos_x,end_pos_y)
+            ),
+            width=5,
+        )
+
+    def update(self, current_pos):
+        self.end_pos.x, self.end_pos.y = current_pos
+class Etrian(GameObject):
+    def __init__(self, start_pos, *args, **kwargs): # Rectangle(start_pos=1); Pen(start_pos=1)
+        self.start_pos = Point(*start_pos)
+        self.end_pos = Point(*start_pos)
+
+    def draw(self):
+        start_pos_x = min(self.start_pos.x, self.end_pos.x)  # min(self.start_pos[0], self.end_pos[0])
+        start_pos_y = min(self.start_pos.x, self.end_pos.y)
+
+        end_pos_x = max(self.start_pos.x, self.end_pos.x)
+        end_pos_y = max(self.start_pos.y, self.end_pos.y)
+
+        pygame.draw.polygon(
+            SCREEN,
+            COLOR,
+            (
+                (start_pos_x,start_pos_y),
+                (end_pos_x-math.sqrt((end_pos_x-start_pos_x)*(end_pos_x-start_pos_x)+(end_pos_y-start_pos_y)*(end_pos_y-start_pos_y)),end_pos_y),
+                (end_pos_x,end_pos_y)
+            ),
+            width=5,
+        )
+
+    def update(self, current_pos):
+        self.end_pos.x, self.end_pos.y = current_pos
+class Romb(GameObject):
+    def __init__(self, start_pos, *args, **kwargs): # Rectangle(start_pos=1); Pen(start_pos=1)
+        self.start_pos = Point(*start_pos)
+        self.end_pos = Point(*start_pos)
+
+    def draw(self):
+        start_pos_x = min(self.start_pos.x, self.end_pos.x)  # min(self.start_pos[0], self.end_pos[0])
+        start_pos_y = min(self.start_pos.x, self.end_pos.y)
+
+        end_pos_x = max(self.start_pos.x, self.end_pos.x)
+        end_pos_y = max(self.start_pos.y, self.end_pos.y)
+
+        pygame.draw.polygon(
+            SCREEN,
+            COLOR,
+            (
+                (start_pos_x,start_pos_y),
+                (start_pos_x-(end_pos_x-start_pos_x),end_pos_y),
+                (start_pos_x,end_pos_y+(end_pos_y-start_pos_y)),
+                (end_pos_x,end_pos_y)
+            ),
+            width=5,
+        )
+
+    def update(self, current_pos):
+        self.end_pos.x, self.end_pos.y = current_pos
 
 class Circle(GameObject):
     def __init__(self, start_pos, *args, **kwargs):
@@ -298,8 +511,12 @@ def main():
     button4c=Button4C()
     button5c=Button5C()
     button6e=Button6E()
+    button7=Button7()
+    button8=Button8()
+    button9=Button9()
+    button10=Button10()
     objects = [
-        button,button2,button3c,button4c,button5c,button6e
+        button,button2,button3c,button4c,button5c,button6e,button7,button8,button9,button10
     ]
     figures=[]
     global COLOR
@@ -341,6 +558,26 @@ def main():
                 elif button6e.rect.collidepoint(event.pos):
                     if current_shape!=Eraser:
                         current_shape=Eraser
+                    else:
+                        current_shape=Pen
+                elif button7.rect.collidepoint(event.pos):
+                    if current_shape!=Square:
+                        current_shape=Square
+                    else:
+                        current_shape=Pen
+                elif button8.rect.collidepoint(event.pos):
+                    if current_shape!=Rtrian:
+                        current_shape=Rtrian
+                    else:
+                        current_shape=Pen
+                elif button9.rect.collidepoint(event.pos):
+                    if current_shape!=Etrian:
+                        current_shape=Etrian
+                    else:
+                        current_shape=Pen
+                elif button10.rect.collidepoint(event.pos):
+                    if current_shape!=Romb:
+                        current_shape=Romb
                     else:
                         current_shape=Pen
                 else:
